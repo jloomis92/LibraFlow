@@ -29,7 +29,19 @@ namespace LibraFlow.ViewModels
             set { _isDarkTheme = value; OnPropertyChanged(); Helpers.ThemeManager.SetBaseTheme(_isDarkTheme ? MaterialDesignThemes.Wpf.BaseTheme.Dark : MaterialDesignThemes.Wpf.BaseTheme.Light); }
         }
 
-        public string? CurrentUser { get; set; } // Make nullable
+        private string _currentUsername;
+        public string CurrentUsername
+        {
+            get => _currentUsername;
+            set
+            {
+                if (_currentUsername != value)
+                {
+                    _currentUsername = value;
+                    OnPropertyChanged(nameof(CurrentUsername));
+                }
+            }
+        }
 
         public MainViewModel()
         {
@@ -42,7 +54,7 @@ namespace LibraFlow.ViewModels
 
             // On startup:
             var loginVM = new LoginViewModel();
-            loginVM.LoginSucceeded += () => CurrentUser = loginVM.Username;
+            loginVM.LoginSucceeded += username => CurrentUsername = username;
             loginVM.ShowRegisterRequested += () => 
             {
                 // Open RegisterView as a new Window instead of setting it as CurrentView
@@ -58,6 +70,12 @@ namespace LibraFlow.ViewModels
                 registerWindow.ShowDialog();
             };
             // Show LoginView as dialog or overlay
+        }
+
+        public void Logout()
+        {
+            CurrentUsername = null;
+            // Any additional cleanup
         }
 
         public event PropertyChangedEventHandler? PropertyChanged; // Make nullable

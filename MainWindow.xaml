@@ -37,12 +37,41 @@
             <Button Content="Members" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="3" Margin="16,0,16,8" Click="MembersButton_Click"/>
             <Button Content="Loans" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="4" Margin="16,0,16,8" Click="LoansButton_Click"/>
 
+            <!-- Display logged in user above settings button -->
+            <TextBlock
+                Grid.Row="5"
+                Margin="16,0,16,8"
+                FontWeight="SemiBold"
+                FontSize="14"
+                Text="{Binding CurrentUsername, StringFormat=Logged in as: {0}}"
+                Style="{StaticResource MaterialDesignBodySmallTextBlock}"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"/>
+            
             <!-- Settings Button at Bottom -->
-            <Button Content="Settings"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
+            <Button
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
                     Grid.Row="6"
+                    Width="40"
+                    Height="40"
+                    HorizontalAlignment="Left"
                     Margin="16,0,16,16"
-                    Click="SettingsButton_Click"/>
+                    Click="SettingsButton_Click">
+                    <materialDesign:PackIcon Kind="Settings" Width="24" Height="24"/>
+            </Button>
+
+            <!-- Logout Button -->
+            <Button
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    Grid.Row="6"
+                    Width="40"
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    Margin="16,0,16,16"
+                    Click="LogoutButton_Click">
+                    <materialDesign:PackIcon Kind="logout" Width="24" Height="24"/>
+            </Button>
+
         </Grid>
 
         <!-- Main Content -->
@@ -68,7 +97,6 @@
                             TextAlignment="Center"/>
                     </StackPanel>
                 </materialDesign:Card>
-                <TextBlock Text="{Binding CurrentUser}" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
             </StackPanel>
         </ContentControl>
     </Grid>

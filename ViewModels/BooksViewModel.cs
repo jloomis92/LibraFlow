@@ -84,8 +84,9 @@ namespace LibraFlow.ViewModels
                 book.Author = dialog.Book.Author;
                 book.ISBN = dialog.Book.ISBN;
                 // Update other properties as needed
-                SaveChanges();
+                SaveChanges(book);
                 OnPropertyChanged(nameof(Books));
+                ReloadBooks(); // Refresh the book list after editing
             }
         }
 
@@ -110,10 +111,18 @@ namespace LibraFlow.ViewModels
                 Books.Add(book);
         }
 
-        private void SaveChanges()
+        private void SaveChanges(Book book)
         {
             using var db = new LibraFlowContext();
-            db.SaveChanges();
+            var dbBook = db.Books.FirstOrDefault(b => b.Id == book.Id);
+            if (dbBook != null)
+            {
+                dbBook.Title = book.Title;
+                dbBook.Author = book.Author;
+                dbBook.ISBN = book.ISBN;
+                // Update other properties as needed
+                db.SaveChanges();
+            }
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

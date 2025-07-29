@@ -5,6 +5,7 @@ using System.Windows.Input;
 using LibraFlow.Data;
 using LibraFlow.Helpers;
 using LibraFlow.Models;
+using LibraFlow.Views;
 
 namespace LibraFlow.ViewModels
 {
@@ -98,7 +99,7 @@ namespace LibraFlow.ViewModels
         public RegisterViewModel()
         {
             RegisterCommand = new RelayCommand(_ => Register());
-            BackToLoginCommand = new RelayCommand(_ => BackToLoginRequested?.Invoke());
+            BackToLoginCommand = new RelayCommand(_ => OnBackToLoginRequested());
         }
 
         private void Register()
@@ -224,5 +225,10 @@ namespace LibraFlow.ViewModels
 
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        public void OnBackToLoginRequested()
+        {
+            BackToLoginRequested?.Invoke();
+        }
     }
 }

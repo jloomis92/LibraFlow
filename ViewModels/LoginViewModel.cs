@@ -5,6 +5,8 @@ using LibraFlow.Data;
 using System.Linq;
 using System.ComponentModel;
 using LibraFlow.Models;
+using System.Windows;
+using LibraFlow.ViewModels;
 
 namespace LibraFlow.ViewModels
 {
@@ -47,7 +49,7 @@ namespace LibraFlow.ViewModels
         public ICommand LoginCommand { get; }
         public ICommand ShowRegisterCommand { get; }
 
-        public event Action LoginSucceeded;
+        public event Action<string> LoginSucceeded;
         public event Action ShowRegisterRequested;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -64,14 +66,15 @@ namespace LibraFlow.ViewModels
             using var db = new LibraFlowContext();
             var user = db.Users.FirstOrDefault(u => u.Username == Username);
 
+            // Always show the same error message for both cases for security
             if (user == null || !PasswordHelper.VerifyPassword(Password, user.PasswordHash))
             {
                 ErrorMessage = "Invalid username or password.";
                 return;
             }
 
-            // Raise event to notify view of successful login
-            LoginSucceeded?.Invoke();
+            // Raise event to notify view of successful login, passing the username
+            LoginSucceeded?.Invoke(user.Username);
         }
 
         private void ShowRegister()

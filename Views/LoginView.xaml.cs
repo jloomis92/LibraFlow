@@ -19,12 +19,14 @@ namespace LibraFlow.Views
     /// <summary>
     /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class LoginView : Window // Change from Page to Window
+    public partial class LoginView : Window
     {
+        private bool _loginSucceeded = false;
+
         public LoginView()
         {
             InitializeComponent();
-            this.DataContext = new LoginViewModel(); // <-- Add this line
+            this.DataContext = new LoginViewModel();
 
             if (DataContext is LoginViewModel vm)
             {
@@ -32,7 +34,6 @@ namespace LibraFlow.Views
             }
             else
             {
-                // If DataContext is set later, subscribe then
                 this.DataContextChanged += (s, e) =>
                 {
                     if (e.NewValue is LoginViewModel newVm)
@@ -41,8 +42,9 @@ namespace LibraFlow.Views
             }
         }
 
-        private void OnLoginSuccess()
+        private void OnLoginSuccess(string username)
         {
+            _loginSucceeded = true;
             this.DialogResult = true;
             this.Close();
         }

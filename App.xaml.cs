@@ -12,6 +12,11 @@ namespace LibraFlow
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            this.ShutdownMode = ShutdownMode.OnMainWindowClose;
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -24,26 +29,54 @@ namespace LibraFlow
 
             loginVM.ShowRegisterRequested += () =>
             {
-                var registerWindow = new RegisterView();
+                var registerVM = new RegisterViewModel();
+                var registerWindow = new RegisterView { DataContext = registerVM };
                 registerWindow.Owner = loginView;
-                // Apply theme to the register window
                 ThemeManager.ApplyTheme(registerWindow);
+
+                // Hide the login window while registration is open
+                loginView.Hide();
+
+                registerVM.BackToLoginRequested += () =>
+                {
+                    // This will be called when registration is successful and user wants to return
+                    registerWindow.Close();
+                    loginView.Show();
+                };
+
                 registerWindow.ShowDialog();
+
+                // If the user closes the register window without registering, show login again
+                if (!loginView.IsVisible)
+                    loginView.Show();
             };
 
-            bool? result = loginView.ShowDialog();
-
-            if (result == true)
+            loginVM.LoginSucceeded += (username) =>
             {
                 var mainWindow = new MainWindow();
-                // Apply theme to the main window
+                // Set the username on the MainViewModel
+                if (mainWindow.DataContext is MainViewModel mainVM)
+                {
+                    mainVM.CurrentUsername = username;
+                }
                 ThemeManager.ApplyTheme(mainWindow);
+
+                // Show the main window first, then close the login window
                 mainWindow.Show();
-            }
-            else
-            {
-                Shutdown();
-            }
+                this.MainWindow = mainWindow; // Set MainWindow AFTER showing
+
+                // Detach loginView from MainWindow before closing it
+                if (this.Windows.OfType<Window>().Contains(loginView))
+                {
+                    loginView.Hide();
+                    loginView.Owner = null;
+                }
+                loginView.Close();
+            };
+
+            // Set loginView as MainWindow initially, so closing it before login will shut down the app
+            this.MainWindow = loginView;
+            loginView.Show();
         }
     }
 }

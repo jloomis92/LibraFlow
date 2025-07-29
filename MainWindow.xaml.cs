@@ -13,10 +13,8 @@ namespace LibraFlow
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            DataContext = new MainViewModel(); // Or your DI/service locator
 
-            // Subscribe to theme changes
-            ThemeManager.ThemeChanged += () => ThemeManager.ApplyTheme(this);
         }
 
         private void SetBaseTheme(BaseTheme baseTheme)
@@ -55,6 +53,17 @@ namespace LibraFlow
         private void LoansButton_Click(object sender, RoutedEventArgs e)
         {
             MainContent.Content = new LoansView();
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is MainViewModel vm)
+                vm.Logout();
+
+            var loginWindow = new Views.LoginView();
+            Application.Current.MainWindow = loginWindow; // Set new main window
+            loginWindow.Show();
+            this.Close();
         }
     }
 }

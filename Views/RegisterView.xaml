@@ -46,15 +46,17 @@
                         Margin="0,0,0,16"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
                     <PasswordBox
+                        x:Name="PasswordBox"
                         materialDesign:HintAssist.Hint="Password"
-                        materialDesign:PasswordBoxAssist.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                         Margin="0,0,0,16"
-                        Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />
+                        Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                        PasswordChanged="PasswordBox_PasswordChanged" />
                     <PasswordBox
+                        x:Name="ConfirmPasswordBox"
                         materialDesign:HintAssist.Hint="Confirm Password"
-                        materialDesign:PasswordBoxAssist.Password="{Binding ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                         Margin="0,0,0,16"
-                        Style="{StaticResource MaterialDesignOutlinedPasswordBox}" />
+                        Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                        PasswordChanged="ConfirmPasswordBox_PasswordChanged" />
                     <TextBlock Text="{Binding ErrorMessage}"
                                Foreground="Red"
                                Margin="0,0,0,8"
@@ -70,7 +72,7 @@
                                HorizontalAlignment="Center"/>
                     <Button Content="Back to Login"
                             Command="{Binding BackToLoginCommand}"
-                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
                             Margin="0,8,0,0"/>
                 </StackPanel>
             </materialDesign:Card>
