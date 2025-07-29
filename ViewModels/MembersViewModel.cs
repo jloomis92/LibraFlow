@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Windows.Data;
@@ -66,6 +67,7 @@ namespace LibraFlow.ViewModels
         private void OpenAddMemberDialog()
         {
             var dialog = new Views.AddMemberDialog();
+            dialog.Owner = Application.Current.MainWindow; // Set the owner
             if (dialog.ShowDialog() == true)
             {
                 using var db = new LibraFlowContext();
@@ -79,7 +81,8 @@ namespace LibraFlow.ViewModels
         private void EditMember(Member member)
         {
             if (member == null) return;
-            var dialog = new Views.AddMemberDialog(member); // Pass member to dialog for editing
+            var dialog = new Views.AddMemberDialog(member);
+            dialog.Owner = Application.Current.MainWindow; // Set the owner
             if (dialog.ShowDialog() == true)
             {
                 // Copy values from dialog.Member back to the original member

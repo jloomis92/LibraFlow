@@ -6,6 +6,7 @@ using System.Windows.Data;
 using LibraFlow.Helpers;
 using LibraFlow.Models;
 using LibraFlow.Data;
+using System.Windows; // Add this using directive for Window
 
 namespace LibraFlow.ViewModels
 {
@@ -62,6 +63,7 @@ namespace LibraFlow.ViewModels
         private void OpenAddBookDialog()
         {
             var dialog = new Views.AddBookDialog();
+            dialog.Owner = Application.Current.MainWindow; // Set the owner
             if (dialog.ShowDialog() == true)
             {
                 using var db = new LibraFlowContext();
@@ -76,7 +78,8 @@ namespace LibraFlow.ViewModels
         private void EditBook(Book book)
         {
             if (book == null) return;
-            var dialog = new Views.AddBookDialog(book); // Pass book to dialog for editing
+            var dialog = new Views.AddBookDialog(book);
+            dialog.Owner = Application.Current.MainWindow; // Set the owner
             if (dialog.ShowDialog() == true)
             {
                 // Update the original book with dialog.Book's values

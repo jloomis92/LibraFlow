@@ -34,7 +34,8 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     MinWidth="100"
-                    Padding="16,0"/>
+                    Padding="16,0"
+                    Command="{Binding AddBookCommand}" />
         </Grid>
         <ListView Grid.Row="1" ItemsSource="{Binding Books}" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedBook}">
             <ListView.View>

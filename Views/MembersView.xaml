@@ -29,7 +29,8 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     MinWidth="100"
-                    Padding="16,0"/>
+                    Padding="16,0"
+                    Command="{Binding AddMemberCommand}" />
         </Grid>
         <ListView x:Name="MembersListView" Grid.Row="1"
                   ItemsSource="{Binding MembersView}"

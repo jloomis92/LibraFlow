@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using LibraFlow.Models;
 using LibraFlow.Helpers;
 
@@ -27,14 +15,17 @@ namespace LibraFlow.Views
         public AddBookDialog()
         {
             InitializeComponent();
-            ThemeManager.ApplyTheme(this);
-            ThemeManager.ThemeChanged += OnThemeChanged;
+            ThemeManager.ApplyTheme(this); // Apply the current theme
+            ThemeManager.ThemeChanged += OnThemeChanged; // Listen for theme changes
             Book = new Book();
             DataContext = Book;
         }
 
-        public AddBookDialog(Book existingBook) : this()
+        public AddBookDialog(Book existingBook)
         {
+            InitializeComponent();
+            ThemeManager.ApplyTheme(this); // Apply the current theme
+            ThemeManager.ThemeChanged += OnThemeChanged; // Listen for theme changes
             if (existingBook != null)
             {
                 Book = new Book
@@ -42,9 +33,14 @@ namespace LibraFlow.Views
                     Id = existingBook.Id,
                     Title = existingBook.Title,
                     Author = existingBook.Author,
-                    ISBN = existingBook.ISBN, // Ensure ISBN is copied
+                    ISBN = existingBook.ISBN,
                     IsCheckedOut = existingBook.IsCheckedOut
                 };
+                DataContext = Book;
+            }
+            else
+            {
+                Book = new Book();
                 DataContext = Book;
             }
         }
