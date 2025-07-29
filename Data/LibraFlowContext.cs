@@ -30,6 +30,7 @@ namespace LibraFlow.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*
             // Seed Books
             modelBuilder.Entity<Book>().HasData(
                 new Book { Id = 1, Title = "The Pragmatic Programmer", Author = "Andrew Hunt", ISBN = "0-8479-9529-1", IsCheckedOut= true },
@@ -60,7 +61,7 @@ namespace LibraFlow.Data
                     CheckedOutDate = new DateTime(2024, 7, 5),
                     ReturnDate = new DateTime(2024, 7, 20)
                 }
-            );
+            ); */
         }
     }
 }
