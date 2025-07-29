@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="LibraFlow.Views.LoansView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:vm="clr-namespace:LibraFlow.ViewModels">
+    <UserControl.DataContext>
+        <vm:LoansViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <StackPanel>
+            <Grid Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    materialDesign:HintAssist.Hint="Search"
+                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Grid.Column="0"
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Center"/>
+                <!-- Spacer in column 1 -->
+                <Button Content="Add New..."
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        MinWidth="100"
+                        Padding="16,0"/>
+            </Grid>
+            <ListView ItemsSource="{Binding LoansView}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Book" DisplayMemberBinding="{Binding Book.Title}" />
+                        <GridViewColumn Header="Member" DisplayMemberBinding="{Binding Member.Name}" />
+                        <GridViewColumn Header="Loan Date" DisplayMemberBinding="{Binding CheckedOutDate}" />
+                        <GridViewColumn Header="Return Date" DisplayMemberBinding="{Binding ReturnDate}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</UserControl>

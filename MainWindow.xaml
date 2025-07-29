@@ -1,0 +1,72 @@
+﻿<Window x:Class="LibraFlow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraFlow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Style="{StaticResource MaterialDesignWindow}"
+        Title="LibraFlow" Height="500" Width="900"
+        Background="{DynamicResource MaterialDesignPaper}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Sidebar -->
+        <Grid Grid.Column="0" Background="#2E2053">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- Logo/Title -->
+                <RowDefinition Height="Auto"/> <!-- Spacer -->
+                <RowDefinition Height="Auto"/> <!-- Books -->
+                <RowDefinition Height="Auto"/> <!-- Members -->
+                <RowDefinition Height="Auto"/> <!-- Loans -->
+                <RowDefinition Height="*"/>    <!-- Fills space -->
+                <RowDefinition Height="Auto"/> <!-- Settings at bottom -->
+            </Grid.RowDefinitions>
+
+            <!-- App Title -->
+            <TextBlock Text="LibraFlow" FontSize="28" FontWeight="Bold" Foreground="White" Margin="16,24,0,16" Grid.Row="0"/>
+
+            <!-- Spacer -->
+            <Border Height="16" Grid.Row="1"/>
+
+            <!-- Navigation Buttons -->
+            <Button Content="Books" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="2" Margin="16,0,16,8" Click="BooksButton_Click"/>
+            <Button Content="Members" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="3" Margin="16,0,16,8" Click="MembersButton_Click"/>
+            <Button Content="Loans" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="4" Margin="16,0,16,8" Click="LoansButton_Click"/>
+
+            <!-- Settings Button at Bottom -->
+            <Button Content="Settings"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Grid.Row="6"
+                    Margin="16,0,16,16"
+                    Click="SettingsButton_Click"/>
+        </Grid>
+
+        <!-- Main Content -->
+        <ContentControl x:Name="MainContent" Grid.Column="1">
+            <materialDesign:Card
+                Padding="32"
+                Margin="48"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Width="400">
+                <StackPanel>
+                    <TextBlock
+                        Text="Welcome to LibraFlow!"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Foreground="{DynamicResource MaterialDesignBody}"
+                        TextAlignment="Center"
+                        Margin="0,0,0,12"/>
+                    <TextBlock
+                        Text="Your modern library management system."
+                        Style="{StaticResource MaterialDesignBody1TextBlock}"
+                        Foreground="{DynamicResource MaterialDesignBody}"
+                        TextAlignment="Center"/>
+                </StackPanel>
+            </materialDesign:Card>
+        </ContentControl>
+    </Grid>
+</Window>
