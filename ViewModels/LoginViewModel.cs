@@ -45,13 +45,16 @@ namespace LibraFlow.ViewModels
         }
 
         public ICommand LoginCommand { get; }
+        public ICommand ShowRegisterCommand { get; }
 
         public event Action LoginSucceeded;
+        public event Action ShowRegisterRequested;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public LoginViewModel()
         {
             LoginCommand = new RelayCommand(_ => Login());
+            ShowRegisterCommand = new RelayCommand(_ => ShowRegisterRequested?.Invoke());
         }
 
         private void Login()
@@ -69,6 +72,12 @@ namespace LibraFlow.ViewModels
 
             // Raise event to notify view of successful login
             LoginSucceeded?.Invoke();
+        }
+
+        private void ShowRegister()
+        {
+            // Raise event to notify view to switch to register
+            ShowRegisterRequested?.Invoke();
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
