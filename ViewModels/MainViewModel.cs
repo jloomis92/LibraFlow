@@ -28,6 +28,8 @@ namespace LibraFlow.ViewModels
             set { _isDarkTheme = value; OnPropertyChanged(); Helpers.ThemeManager.SetBaseTheme(_isDarkTheme ? MaterialDesignThemes.Wpf.BaseTheme.Dark : MaterialDesignThemes.Wpf.BaseTheme.Light); }
         }
 
+        public string CurrentUser { get; set; }
+
         public MainViewModel()
         {
 
@@ -37,6 +39,11 @@ namespace LibraFlow.ViewModels
             NavigateBooksCommand = new RelayCommand(_ => CurrentView = new BooksView());
             NavigateMembersCommand = new RelayCommand(_ => CurrentView = new MembersView());
             NavigateLoansCommand = new RelayCommand(_ => CurrentView = new LoansView());
+
+            // On startup:
+            var loginVM = new LoginViewModel();
+            loginVM.LoginSucceeded += () => CurrentUser = loginVM.Username;
+            // Show LoginView as dialog or overlay
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

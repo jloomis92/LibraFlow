@@ -47,26 +47,29 @@
 
         <!-- Main Content -->
         <ContentControl x:Name="MainContent" Grid.Column="1">
-            <materialDesign:Card
-                Padding="32"
-                Margin="48"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Width="400">
-                <StackPanel>
-                    <TextBlock
-                        Text="Welcome to LibraFlow!"
-                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                        Foreground="{DynamicResource MaterialDesignBody}"
-                        TextAlignment="Center"
-                        Margin="0,0,0,12"/>
-                    <TextBlock
-                        Text="Your modern library management system."
-                        Style="{StaticResource MaterialDesignBody1TextBlock}"
-                        Foreground="{DynamicResource MaterialDesignBody}"
-                        TextAlignment="Center"/>
-                </StackPanel>
-            </materialDesign:Card>
+            <StackPanel>
+                <materialDesign:Card
+                    Padding="32"
+                    Margin="48"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Width="400">
+                    <StackPanel>
+                        <TextBlock
+                            Text="Welcome to LibraFlow!"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Foreground="{DynamicResource MaterialDesignBody}"
+                            TextAlignment="Center"
+                            Margin="0,0,0,12"/>
+                        <TextBlock
+                            Text="Your modern library management system."
+                            Style="{StaticResource MaterialDesignBody1TextBlock}"
+                            Foreground="{DynamicResource MaterialDesignBody}"
+                            TextAlignment="Center"/>
+                    </StackPanel>
+                </materialDesign:Card>
+                <TextBlock Text="{Binding CurrentUser}" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+            </StackPanel>
         </ContentControl>
     </Grid>
 </Window>

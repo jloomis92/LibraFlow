@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using LibraFlow.Helpers;
+using LibraFlow.Views;
 
 namespace LibraFlow
 {
@@ -18,15 +19,24 @@ namespace LibraFlow
             ThemeManager.ChangeTheme("Dark"); // or "Light"
             ThemeManager.ApplyTheme(null);    // Apply immediately
 
-            ThemeManager.ApplyTheme(MainWindow);
+            // Show the login window
+            var loginView = new LoginView();
+            bool? result = loginView.ShowDialog();
 
-            // Create the main window
-            var mainWindow = new MainWindow();
+            if (result == true)
+            {
+                // If login successful, show the main window
+                var mainWindow = new MainWindow();
+                // Apply the saved theme before showing the window
+                ThemeManager.ApplyTheme(mainWindow);
 
-            // Apply the saved theme before showing the window
-            ThemeManager.ApplyTheme(mainWindow);
-
-            mainWindow.Show();
+                mainWindow.Show();
+            }
+            else
+            {
+                // If login failed or canceled, shut down
+                Shutdown();
+            }
         }
     }
 }
