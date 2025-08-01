@@ -7,38 +7,113 @@
         <vm:LoansViewModel />
     </UserControl.DataContext>
     <Grid>
-        <StackPanel>
-            <Grid Margin="0,0,0,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="350"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBox
-                    materialDesign:HintAssist.Hint="Search"
-                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Grid.Column="0"
-                    Margin="0,0,8,0"
-                    VerticalAlignment="Center"/>
-                <!-- Spacer in column 1 -->
-                <Button Content="Add New..."
-                        Grid.Column="2"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        MinWidth="100"
-                        Padding="16,0"/>
-            </Grid>
-            <ListView ItemsSource="{Binding LoansView}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Book" DisplayMemberBinding="{Binding Book.Title}" />
-                        <GridViewColumn Header="Member" DisplayMemberBinding="{Binding Member.Name}" />
-                        <GridViewColumn Header="Loan Date" DisplayMemberBinding="{Binding CheckedOutDate}" />
-                        <GridViewColumn Header="Return Date" DisplayMemberBinding="{Binding ReturnDate}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="0,0,0,8" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox
+                materialDesign:HintAssist.Hint="Search"
+                Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                Grid.Column="0"
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"/>
+            <Button Content="Add New..."
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    MinWidth="100"
+                    Padding="16,0"/>
+        </Grid>
+        <DataGrid Grid.Row="1" 
+                  ItemsSource="{Binding LoansView}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserSortColumns="True"
+                  IsReadOnly="True"
+                  GridLinesVisibility="None"
+                  HeadersVisibility="Column"
+                  Background="{DynamicResource MaterialDesignPaper}"
+                  Foreground="{DynamicResource MaterialDesignBody}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Book" Binding="{Binding Book.Title}" Width="3*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Member" Binding="{Binding Member.Name}" Width="3*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Loan Date" Binding="{Binding CheckedOutDate, StringFormat='{}{0:MM/dd/yyyy}'}" Width="2*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Return Date" Binding="{Binding ReturnDate, StringFormat='{}{0:MM/dd/yyyy}'}" Width="2*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

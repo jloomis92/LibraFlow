@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Style="{StaticResource MaterialDesignWindow}"
-        Title="LibraFlow" Height="500" Width="900"
+        Title="LibraFlow" Height="720" Width="1280"
         Background="{DynamicResource MaterialDesignPaper}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -44,7 +44,7 @@
                 FontWeight="SemiBold"
                 FontSize="14"
                 Text="{Binding CurrentUsername, StringFormat=Logged in as: {0}}"
-                Style="{StaticResource MaterialDesignBodySmallTextBlock}"
+                Foreground="White"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"/>
             

@@ -32,40 +32,74 @@
                     Padding="16,0"
                     Command="{Binding AddMemberCommand}" />
         </Grid>
-        <ListView x:Name="MembersListView" Grid.Row="1"
+        <DataGrid Grid.Row="1" 
                   ItemsSource="{Binding MembersView}"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}" Style="{StaticResource MaterialDesignBody2TextBlock}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Email" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Email}" Style="{StaticResource MaterialDesignBody2TextBlock}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Action" Width="120">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Edit"
-                                        Command="{Binding DataContext.EditMemberCommand, ElementName=MembersListView}"
-                                        CommandParameter="{Binding}"
-                                        Margin="2"
-                                        HorizontalAlignment="Center"
-                                        Style="{StaticResource MaterialDesignRaisedButton}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserSortColumns="True"
+                  IsReadOnly="True"
+                  GridLinesVisibility="None"
+                  HeadersVisibility="Column"
+                  Background="{DynamicResource MaterialDesignPaper}"
+                  Foreground="{DynamicResource MaterialDesignBody}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="4*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody2TextBlock}">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="5*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody2TextBlock}">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Action" Width="2*">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit"
+                                    Command="{Binding DataContext.EditMemberCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

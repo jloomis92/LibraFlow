@@ -37,33 +37,109 @@
                     Padding="16,0"
                     Command="{Binding AddBookCommand}" />
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Books}" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedBook}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
-                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" />
-                    <GridViewColumn Header="ISBN" DisplayMemberBinding="{Binding ISBN}" />
-                    <GridViewColumn Header="Checked Out">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <TextBlock Text="{Binding IsCheckedOut, Converter={StaticResource BoolToYesNoConverter}}"
-                                               HorizontalAlignment="Stretch"
-                                               VerticalAlignment="Bottom"
-                                               TextAlignment="Justify" />
-                                </Grid>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Actions">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Edit" Command="{Binding DataContext.EditBookCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Margin="2"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid Grid.Row="1" 
+                  ItemsSource="{Binding Books}" 
+                  SelectedItem="{Binding SelectedBook}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserSortColumns="True"
+                  IsReadOnly="True"
+                  GridLinesVisibility="None"
+                  HeadersVisibility="Column"
+                  Background="{DynamicResource MaterialDesignPaper}"
+                  Foreground="{DynamicResource MaterialDesignBody}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="3*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="2.5*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="ISBN" Binding="{Binding ISBN}" Width="2*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Checked Out" Binding="{Binding IsCheckedOut, Converter={StaticResource BoolToYesNoConverter}}" Width="1.5*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Actions" Width="*">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit" 
+                                   Command="{Binding DataContext.EditBookCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                   CommandParameter="{Binding}" 
+                                   Style="{StaticResource MaterialDesignRaisedButton}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

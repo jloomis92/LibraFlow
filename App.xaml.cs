@@ -1,6 +1,11 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Diagnostics;
 using LibraFlow.Helpers;
 using LibraFlow.Views;
 using LibraFlow.ViewModels;
@@ -19,6 +24,9 @@ namespace LibraFlow
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Suppress binding errors that don't affect functionality
+            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
+            
             base.OnStartup(e);
 
             // Apply the saved theme at startup

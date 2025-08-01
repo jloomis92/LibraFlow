@@ -40,6 +40,13 @@ namespace LibraFlow.Views
                         newVm.LoginSucceeded += OnLoginSuccess;
                 };
             }
+
+            // Set focus to username field when window is loaded
+            this.Loaded += (s, e) => 
+            {
+                UsernameTextBox.Focus();
+                UsernameTextBox.SelectAll(); // Optional: select any existing text
+            };
         }
 
         private void OnLoginSuccess(string username)

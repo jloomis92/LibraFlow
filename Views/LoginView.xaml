@@ -25,7 +25,7 @@
                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                                Margin="0,0,0,16"
                                HorizontalAlignment="Center"/>
-                    <TextBox
+                    <TextBox x:Name="UsernameTextBox"
                         materialDesign:HintAssist.Hint="Username"
                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                         Margin="0,0,0,16"
