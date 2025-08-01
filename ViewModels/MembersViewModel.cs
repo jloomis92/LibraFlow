@@ -82,13 +82,20 @@ namespace LibraFlow.ViewModels
         {
             if (member == null) return;
             var dialog = new Views.AddMemberDialog(member);
-            dialog.Owner = Application.Current.MainWindow; // Set the owner
+            dialog.Owner = Application.Current.MainWindow;
             if (dialog.ShowDialog() == true)
             {
-                // Copy values from dialog.Member back to the original member
+                using var db = new LibraFlowContext();
+                var dbMember = db.Members.Find(member.Id);
+                if (dbMember != null)
+                {
+                    dbMember.Name = dialog.Member.Name;
+                    dbMember.Email = dialog.Member.Email;
+                    db.SaveChanges();
+                }
+                // Update the in-memory collection
                 member.Name = dialog.Member.Name;
                 member.Email = dialog.Member.Email;
-                SaveChanges();
                 OnPropertyChanged(nameof(Members));
                 MembersView.Refresh();
             }
