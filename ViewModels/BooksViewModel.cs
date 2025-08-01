@@ -63,7 +63,7 @@ namespace LibraFlow.ViewModels
         private void OpenAddBookDialog()
         {
             var dialog = new Views.AddBookDialog();
-            dialog.Owner = Application.Current.MainWindow; // Set the owner
+            dialog.Owner = System.Windows.Application.Current.MainWindow; // Set the owner
             if (dialog.ShowDialog() == true)
             {
                 using var db = new LibraFlowContext();
@@ -79,7 +79,7 @@ namespace LibraFlow.ViewModels
         {
             if (book == null) return;
             var dialog = new Views.AddBookDialog(book);
-            dialog.Owner = Application.Current.MainWindow; // Set the owner
+            dialog.Owner = System.Windows.Application.Current.MainWindow; // Set the owner
             if (dialog.ShowDialog() == true)
             {
                 // Update the original book with dialog.Book's values

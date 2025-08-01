@@ -29,7 +29,7 @@ namespace LibraFlow.Views
         {
             vm.RegistrationSucceeded += () =>
             {
-                MessageBoxResult result = MessageBox.Show(
+                MessageBoxResult result = System.Windows.MessageBox.Show(
                     "Registration successful! Return to login?",
                     "Success",
                     MessageBoxButton.YesNo,

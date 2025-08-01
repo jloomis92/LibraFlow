@@ -18,7 +18,7 @@ namespace LibraFlow.Views
     /// <summary>
     /// Interaction logic for MembersView.xaml
     /// </summary>
-    public partial class MembersView : UserControl
+    public partial class MembersView : System.Windows.Controls.UserControl
     {
         public MembersView()
         {

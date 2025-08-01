@@ -34,5 +34,53 @@ namespace LibraFlow.Properties {
                 this["AppTheme"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0001-01-01T00:00:00")]
+        public global::System.DateTime LastBackupDate {
+            get {
+                return ((global::System.DateTime)(this["LastBackupDate"]));
+            }
+            set {
+                this["LastBackupDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BackupDirectory {
+            get {
+                return ((string)(this["BackupDirectory"]));
+            }
+            set {
+                this["BackupDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoBackupEnabled {
+            get {
+                return ((bool)(this["AutoBackupEnabled"]));
+            }
+            set {
+                this["AutoBackupEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int AutoBackupDays {
+            get {
+                return ((int)(this["AutoBackupDays"]));
+            }
+            set {
+                this["AutoBackupDays"] = value;
+            }
+        }
     }
 }

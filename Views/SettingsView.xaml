@@ -9,25 +9,184 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <Grid>
-        <StackPanel Margin="20">
-            <TextBlock Text="LibraFlow Settings"
-                       FontWeight="Bold"
-                       FontSize="16"
-                       Style="{DynamicResource MaterialDesignHeadline6TextBlock}" />
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                <TextBlock Text="Theme:" VerticalAlignment="Center"
-                           Style="{DynamicResource MaterialDesignBody1TextBlock}" FontWeight="Bold" />
-                <ComboBox x:Name="ThemeComboBox"
-                          Width="100"
-                          Margin="10,0,0,0"
-                          SelectionChanged="ThemeComboBox_SelectionChanged"
-                          Style="{DynamicResource MaterialDesignComboBox}"
-                          materialDesign:ColorZoneAssist.Foreground="{DynamicResource MaterialDesignBody}"
-                          FontFamily="{materialDesign:MaterialDesignFont}">
-                    <ComboBoxItem Content="Light"/>
-                    <ComboBoxItem Content="Dark"/>
-                </ComboBox>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="32">
+                <!-- Header -->
+                <TextBlock Text="LibraFlow Settings"
+                           FontWeight="Bold"
+                           FontSize="24"
+                           Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                           Margin="0,0,0,24" />
+
+                <!-- Theme Settings -->
+                <materialDesign:Card Padding="24" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Appearance"
+                                   FontWeight="SemiBold"
+                                   FontSize="18"
+                                   Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,16" />
+
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Palette" 
+                                                   Width="20" Height="20" 
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,8,0"/>
+                            <TextBlock Text="Theme:" 
+                                       VerticalAlignment="Center"
+                                       Style="{DynamicResource MaterialDesignBody1TextBlock}" 
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,16,0" />
+                            <ComboBox x:Name="ThemeComboBox"
+                                      Width="120"
+                                      SelectionChanged="ThemeComboBox_SelectionChanged"
+                                      Style="{DynamicResource MaterialDesignComboBox}">
+                                <ComboBoxItem Content="Light"/>
+                                <ComboBoxItem Content="Dark"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Backup Settings -->
+                <materialDesign:Card Padding="24" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Backup &amp; Restore"
+                                   FontWeight="SemiBold"
+                                   FontSize="18"
+                                   Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,16" />
+
+                        <!-- Manual Backup -->
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                    <materialDesign:PackIcon Kind="BackupRestore" 
+                                                           Width="20" Height="20" 
+                                                           VerticalAlignment="Center"
+                                                           Margin="0,0,8,0"/>
+                                    <TextBlock Text="Manual Backup" 
+                                               FontWeight="SemiBold"
+                                               Style="{DynamicResource MaterialDesignBody1TextBlock}" />
+                                </StackPanel>
+                                <TextBlock Text="Create a backup of your library database"
+                                           Style="{DynamicResource MaterialDesignCaptionTextBlock}"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}" />
+                                <TextBlock x:Name="LastBackupLabel"
+                                           Text="Last backup: Never"
+                                           Style="{DynamicResource MaterialDesignCaptionTextBlock}"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                           Margin="0,4,0,0" />
+                            </StackPanel>
+
+                            <Button Grid.Column="1"
+                                    x:Name="CreateBackupButton"
+                                    Content="Create Backup"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Click="CreateBackupButton_Click"
+                                    VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <Separator Margin="0,8"/>
+
+                        <!-- Restore Backup -->
+                        <Grid Margin="0,16,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                    <materialDesign:PackIcon Kind="DatabaseImport" 
+                                                           Width="20" Height="20" 
+                                                           VerticalAlignment="Center"
+                                                           Margin="0,0,8,0"/>
+                                    <TextBlock Text="Restore Backup" 
+                                               FontWeight="SemiBold"
+                                               Style="{DynamicResource MaterialDesignBody1TextBlock}" />
+                                </StackPanel>
+                                <TextBlock Text="Restore your library database from a backup file"
+                                           Style="{DynamicResource MaterialDesignCaptionTextBlock}"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}" />
+                            </StackPanel>
+
+                            <Button Grid.Column="1"
+                                    x:Name="RestoreBackupButton"
+                                    Content="Restore Backup"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Click="RestoreBackupButton_Click"
+                                    VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <Separator Margin="0,8"/>
+
+                        <!-- Auto Backup Settings -->
+                        <StackPanel Margin="0,16,0,0">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                <materialDesign:PackIcon Kind="AutoDownload" 
+                                                       Width="20" Height="20" 
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,8,0"/>
+                                <TextBlock Text="Automatic Backup" 
+                                           FontWeight="SemiBold"
+                                           Style="{DynamicResource MaterialDesignBody1TextBlock}" />
+                            </StackPanel>
+
+                            <CheckBox x:Name="AutoBackupCheckBox"
+                                      Content="Enable automatic backups"
+                                      Style="{DynamicResource MaterialDesignCheckBox}"
+                                      Margin="28,0,0,8"
+                                      Checked="AutoBackupCheckBox_Checked"
+                                      Unchecked="AutoBackupCheckBox_Unchecked" />
+
+                            <StackPanel Orientation="Horizontal" 
+                                        Margin="28,0,0,8"
+                                        IsEnabled="{Binding IsChecked, ElementName=AutoBackupCheckBox}">
+                                <TextBlock Text="Backup every" 
+                                           VerticalAlignment="Center"
+                                           Style="{DynamicResource MaterialDesignBody2TextBlock}"
+                                           Margin="0,0,8,0" />
+                                <ComboBox x:Name="BackupFrequencyComboBox"
+                                          Width="80"
+                                          Style="{DynamicResource MaterialDesignComboBox}"
+                                          SelectionChanged="BackupFrequencyComboBox_SelectionChanged">
+                                    <ComboBoxItem Content="1" Tag="1"/>
+                                    <ComboBoxItem Content="3" Tag="3"/>
+                                    <ComboBoxItem Content="7" Tag="7"/>
+                                    <ComboBoxItem Content="14" Tag="14"/>
+                                    <ComboBoxItem Content="30" Tag="30"/>
+                                </ComboBox>
+                                <TextBlock Text="days" 
+                                           VerticalAlignment="Center"
+                                           Style="{DynamicResource MaterialDesignBody2TextBlock}"
+                                           Margin="8,0,0,0" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="28,8,0,0">
+                                <TextBlock Text="Backup location:" 
+                                           VerticalAlignment="Center"
+                                           Style="{DynamicResource MaterialDesignBody2TextBlock}"
+                                           Margin="0,0,8,0" />
+                                <TextBox x:Name="BackupLocationTextBox"
+                                         Width="300"
+                                         Style="{DynamicResource MaterialDesignOutlinedTextBox}"
+                                         IsReadOnly="True"
+                                         Margin="0,0,8,0" />
+                                <Button Content="Browse"
+                                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                                        Click="BrowseBackupLocationButton_Click"
+                                        Height="32" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
             </StackPanel>
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

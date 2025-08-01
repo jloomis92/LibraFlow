@@ -67,7 +67,7 @@ namespace LibraFlow.ViewModels
         private void OpenAddMemberDialog()
         {
             var dialog = new Views.AddMemberDialog();
-            dialog.Owner = Application.Current.MainWindow; // Set the owner
+            dialog.Owner = System.Windows.Application.Current.MainWindow; // Set the owner
             if (dialog.ShowDialog() == true)
             {
                 using var db = new LibraFlowContext();
@@ -82,7 +82,7 @@ namespace LibraFlow.ViewModels
         {
             if (member == null) return;
             var dialog = new Views.AddMemberDialog(member);
-            dialog.Owner = Application.Current.MainWindow;
+            dialog.Owner = System.Windows.Application.Current.MainWindow;
             if (dialog.ShowDialog() == true)
             {
                 using var db = new LibraFlowContext();

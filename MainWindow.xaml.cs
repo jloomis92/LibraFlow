@@ -19,7 +19,7 @@ namespace LibraFlow
 
         private void SetBaseTheme(BaseTheme baseTheme)
         {
-            foreach (var dict in Application.Current.Resources.MergedDictionaries)
+            foreach (var dict in System.Windows.Application.Current.Resources.MergedDictionaries)
             {
                 if (dict is BundledTheme bundledTheme)
                 {
@@ -61,7 +61,7 @@ namespace LibraFlow
                 vm.Logout();
 
             var loginWindow = new Views.LoginView();
-            Application.Current.MainWindow = loginWindow; // Set new main window
+            System.Windows.Application.Current.MainWindow = loginWindow; // Set new main window
             loginWindow.Show();
             this.Close();
         }

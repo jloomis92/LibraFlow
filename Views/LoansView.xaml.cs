@@ -18,7 +18,7 @@ namespace LibraFlow.Views
     /// <summary>
     /// Interaction logic for LoansView.xaml
     /// </summary>
-    public partial class LoansView : UserControl
+    public partial class LoansView : System.Windows.Controls.UserControl
     {
         public LoansView()
         {

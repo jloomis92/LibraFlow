@@ -20,7 +20,7 @@ namespace LibraFlow.Views
     /// <summary>
     /// Interaction logic for BooksView.xaml
     /// </summary>
-    public partial class BooksView : UserControl
+    public partial class BooksView : System.Windows.Controls.UserControl
     {
         public BooksView()
         {
