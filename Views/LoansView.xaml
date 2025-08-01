@@ -24,12 +24,6 @@
                 Grid.Column="0"
                 Margin="0,0,8,0"
                 VerticalAlignment="Center"/>
-            <Button Content="Add New..."
-                    Grid.Column="2"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    MinWidth="100"
-                    Padding="16,0"/>
         </Grid>
         <DataGrid Grid.Row="1" 
                   ItemsSource="{Binding LoansView}"
