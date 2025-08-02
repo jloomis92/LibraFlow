@@ -1,0 +1,55 @@
+﻿<Window x:Class="LibraFlow.Views.CsvImportDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Style="{StaticResource MaterialDesignWindow}"
+        Title="Import Books from CSV" Height="400" Width="500" WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Instructions -->
+        <TextBlock Grid.Row="0" Text="Import Books from CSV File" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+        
+        <TextBlock Grid.Row="1" TextWrapping="Wrap" Margin="0,0,0,15">
+            Select a CSV file to import books. The CSV should contain columns for Title, Author, and ISBN (in that order).
+            You can include a header row if desired.
+        </TextBlock>
+
+        <!-- File Selection -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,15">
+            <TextBox x:Name="FilePathTextBox" Width="300" IsReadOnly="True" 
+                     materialDesign:HintAssist.Hint="Select CSV file..." Margin="0,0,10,0"/>
+            <Button x:Name="BrowseButton" Content="Browse..." Width="80" Click="BrowseButton_Click"/>
+        </StackPanel>
+
+        <!-- Download Template -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,15">
+            <Button x:Name="DownloadTemplateButton" Content="Download CSV Template" 
+                    Click="DownloadTemplate_Click" Style="{StaticResource MaterialDesignOutlinedButton}"/>
+        </StackPanel>
+
+        <!-- Progress -->
+        <StackPanel Grid.Row="4" Margin="0,0,0,15" Visibility="{Binding IsImporting, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="Importing books..." Margin="0,0,0,5"/>
+            <ProgressBar IsIndeterminate="True" Height="4"/>
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="ImportButton" Content="Import" Width="80" Margin="0,0,10,0" 
+                    Click="Import_Click" IsEnabled="{Binding CanImport}"/>
+            <Button x:Name="CancelButton" Content="Cancel" Width="80" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

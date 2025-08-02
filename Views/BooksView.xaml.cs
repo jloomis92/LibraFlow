@@ -26,18 +26,5 @@ namespace LibraFlow.Views
         {
             InitializeComponent();
         }
-
-        private void AddBookButton_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new AddBookDialog();
-            if (dialog.ShowDialog() == true)
-            {
-                using (var db = new LibraFlowContext())
-                {
-                    db.Books.Add(dialog.Book);
-                    db.SaveChanges();
-                }
-            }
-        }
     }
 }

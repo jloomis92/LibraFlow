@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Windows.Data;
 using LibraFlow.Helpers;
-using LibraFlow.Data;
 using LibraFlow.Models;
+using LibraFlow.Data;
+using System.Windows;
+using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 
 namespace LibraFlow.ViewModels
 {
@@ -36,6 +35,7 @@ namespace LibraFlow.ViewModels
 
         public ICommand AddMemberCommand { get; }
         public ICommand EditMemberCommand { get; }
+        public ICommand ImportCsvCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -62,12 +62,13 @@ namespace LibraFlow.ViewModels
 
             AddMemberCommand = new RelayCommand(_ => OpenAddMemberDialog());
             EditMemberCommand = new RelayCommand(param => EditMember(param as Member));
+            ImportCsvCommand = new RelayCommand(_ => OpenCsvImportDialog());
         }
 
         private void OpenAddMemberDialog()
         {
             var dialog = new Views.AddMemberDialog();
-            dialog.Owner = System.Windows.Application.Current.MainWindow; // Set the owner
+            dialog.Owner = System.Windows.Application.Current.MainWindow;
             if (dialog.ShowDialog() == true)
             {
                 using var db = new LibraFlowContext();
@@ -76,6 +77,55 @@ namespace LibraFlow.ViewModels
 
                 Members.Add(dialog.Member);
             }
+        }
+
+        private void OpenCsvImportDialog()
+        {
+            try
+            {
+                var dialog = new Views.MembersCsvImportDialog();
+                dialog.Owner = System.Windows.Application.Current.MainWindow;
+                
+                if (dialog.ShowDialog() == true && dialog.ImportedMembers?.Any() == true)
+                {
+                    ImportMembersAsync(dialog.ImportedMembers);
+                    
+                    System.Windows.MessageBox.Show(
+                        $"Successfully imported {dialog.ImportedMembers.Count} members!",
+                        "Import Complete",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(
+                    $"Error importing members: {ex.Message}",
+                    "Import Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        private async Task ImportMembersAsync(List<Member> membersToImport)
+        {
+            await Task.Run(() =>
+            {
+                using var db = new LibraFlowContext();
+                
+                // Add members to database
+                db.Members.AddRange(membersToImport);
+                db.SaveChanges();
+                
+                // Update the ObservableCollection on the UI thread
+                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                {
+                    foreach (var member in membersToImport)
+                    {
+                        Members.Add(member);
+                    }
+                });
+            });
         }
 
         private void EditMember(Member member)

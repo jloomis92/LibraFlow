@@ -118,9 +118,9 @@ namespace LibraFlow.ViewModels
             // Set default view to WelcomeView
             CurrentView = new Views.WelcomeView();
 
-            NavigateBooksCommand = new RelayCommand(_ => CurrentView = new BooksView());
-            NavigateMembersCommand = new RelayCommand(_ => CurrentView = new MembersView());
-            NavigateLoansCommand = new RelayCommand(_ => CurrentView = new LoansView());
+            NavigateBooksCommand = new RelayCommand(_ => NavigateToBooks());
+            NavigateMembersCommand = new RelayCommand(_ => NavigateToMembers());
+            NavigateLoansCommand = new RelayCommand(_ => NavigateToLoans());
 
             // Initialize status bar properties
             InitializeStatusBar();
@@ -172,6 +172,27 @@ namespace LibraFlow.ViewModels
                 };
                 registerWindow.ShowDialog();
             };
+        }
+
+        private void NavigateToBooks()
+        {
+            var booksView = new BooksView();
+            booksView.DataContext = new BooksViewModel();
+            CurrentView = booksView;
+        }
+
+        private void NavigateToMembers()
+        {
+            var membersView = new MembersView();
+            membersView.DataContext = new MembersViewModel();
+            CurrentView = membersView;
+        }
+
+        private void NavigateToLoans()
+        {
+            var loansView = new LoansView();
+            loansView.DataContext = new LoansViewModel();
+            CurrentView = loansView;
         }
 
         private void HandleConnectionStatusChange(bool previousState, bool currentState)

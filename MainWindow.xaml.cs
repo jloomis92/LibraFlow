@@ -140,24 +140,27 @@ namespace LibraFlow
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             MainContent.Content = new SettingsView();
-            
-            // Test notification when clicking settings (for debugging)
-            TestSingleNotification();
         }
 
         private void BooksButton_Click(object sender, RoutedEventArgs e)
         {
-            MainContent.Content = new BooksView();
+            var booksView = new BooksView();
+            booksView.DataContext = new BooksViewModel();
+            MainContent.Content = booksView;
         }
 
         private void MembersButton_Click(object sender, RoutedEventArgs e)
         {
-            MainContent.Content = new MembersView();
+            var membersView = new MembersView();
+            membersView.DataContext = new MembersViewModel();
+            MainContent.Content = membersView;
         }
 
         private void LoansButton_Click(object sender, RoutedEventArgs e)
         {
-            MainContent.Content = new LoansView();
+            var loansView = new LoansView();
+            loansView.DataContext = new LoansViewModel();
+            MainContent.Content = loansView;
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)

@@ -6,7 +6,10 @@ using System.Windows.Data;
 using LibraFlow.Helpers;
 using LibraFlow.Models;
 using LibraFlow.Data;
-using System.Windows; // Add this using directive for Window
+using System.Windows;
+using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 
 namespace LibraFlow.ViewModels
 {
@@ -31,6 +34,7 @@ namespace LibraFlow.ViewModels
 
         public ICommand AddBookCommand { get; }
         public ICommand EditBookCommand { get; }
+        public ICommand ImportCsvCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -54,16 +58,20 @@ namespace LibraFlow.ViewModels
             Books = new ObservableCollection<Book>(db.Books.ToList());
             AddBookCommand = new RelayCommand(_ => OpenAddBookDialog());
             EditBookCommand = new RelayCommand(param => EditBook(param as Book));
+            ImportCsvCommand = new RelayCommand(_ => OpenCsvImportDialog());
 
             // Populate Books collection
             BooksView = CollectionViewSource.GetDefaultView(Books);
             BooksView.Filter = FilterBooks;
+
+            // Debug output to confirm ViewModel is created
+            System.Diagnostics.Debug.WriteLine("BooksViewModel created with ImportCsvCommand");
         }
 
         private void OpenAddBookDialog()
         {
             var dialog = new Views.AddBookDialog();
-            dialog.Owner = System.Windows.Application.Current.MainWindow; // Set the owner
+            dialog.Owner = System.Windows.Application.Current.MainWindow;
             if (dialog.ShowDialog() == true)
             {
                 using var db = new LibraFlowContext();
@@ -75,11 +83,72 @@ namespace LibraFlow.ViewModels
             }
         }
 
+        private void OpenCsvImportDialog()
+        {
+            // Debug output to confirm method is called
+            System.Diagnostics.Debug.WriteLine("OpenCsvImportDialog called");
+            
+            try
+            {
+                var dialog = new Views.CsvImportDialog();
+                dialog.Owner = System.Windows.Application.Current.MainWindow;
+                
+                System.Diagnostics.Debug.WriteLine("CsvImportDialog created, showing dialog");
+                
+                if (dialog.ShowDialog() == true && dialog.ImportedBooks?.Any() == true)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Dialog returned true with {dialog.ImportedBooks.Count} books");
+                    
+                    ImportBooksAsync(dialog.ImportedBooks);
+                    
+                    System.Windows.MessageBox.Show(
+                        $"Successfully imported {dialog.ImportedBooks.Count} books!",
+                        "Import Complete",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Dialog was cancelled or no books imported");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in OpenCsvImportDialog: {ex.Message}");
+                System.Windows.MessageBox.Show(
+                    $"Error importing books: {ex.Message}",
+                    "Import Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        private async Task ImportBooksAsync(List<Book> booksToImport)
+        {
+            await Task.Run(() =>
+            {
+                using var db = new LibraFlowContext();
+                
+                // Add books to database
+                db.Books.AddRange(booksToImport);
+                db.SaveChanges();
+                
+                // Update the ObservableCollection on the UI thread
+                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                {
+                    foreach (var book in booksToImport)
+                    {
+                        Books.Add(book);
+                    }
+                });
+            });
+        }
+
         private void EditBook(Book book)
         {
             if (book == null) return;
             var dialog = new Views.AddBookDialog(book);
-            dialog.Owner = System.Windows.Application.Current.MainWindow; // Set the owner
+            dialog.Owner = System.Windows.Application.Current.MainWindow;
             if (dialog.ShowDialog() == true)
             {
                 // Update the original book with dialog.Book's values
