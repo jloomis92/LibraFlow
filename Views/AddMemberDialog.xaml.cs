@@ -1,12 +1,12 @@
 ﻿using System.Windows;
 using LibraFlow.Models;
-using LibraFlow.Helpers; // Add this
+using LibraFlow.Helpers;
 
 namespace LibraFlow.Views
 {
     /// <summary>
     /// Interaction logic for AddMemberDialog.xaml
-    /// </summary>
+    /// </summary>S
     public partial class AddMemberDialog : Window
     {
         public Member Member { get; private set; }

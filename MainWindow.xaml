@@ -9,226 +9,240 @@
         Style="{StaticResource MaterialDesignWindow}"
         Title="LibraFlow" Height="720" Width="1280"
         Background="{DynamicResource MaterialDesignPaper}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        
-        <!-- Main Content Area -->
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+
+    <materialDesign:DialogHost x:Name="DialogHost">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             
-            <!-- Sidebar -->
-            <Grid Grid.Column="0" Background="#2E2053">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/> <!-- Logo/Title -->
-                    <RowDefinition Height="Auto"/> <!-- Spacer -->
-                    <RowDefinition Height="Auto"/> <!-- Books -->
-                    <RowDefinition Height="Auto"/> <!-- Members -->
-                    <RowDefinition Height="Auto"/> <!-- Loans -->
-                    <RowDefinition Height="*"/>    <!-- Fills space -->
-                    <RowDefinition Height="Auto"/> <!-- Settings at bottom -->
-                </Grid.RowDefinitions>
-
-                <!-- App Title -->
-                <TextBlock Text="LibraFlow" FontSize="28" FontWeight="Bold" Foreground="White" Margin="16,24,0,16" Grid.Row="0"/>
-
-                <!-- Spacer -->
-                <Border Height="16" Grid.Row="1"/>
-
-                <!-- Navigation Buttons -->
-                <Button Content="Books" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="2" Margin="16,0,16,8" Click="BooksButton_Click"/>
-                <Button Content="Members" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="3" Margin="16,0,16,8" Click="MembersButton_Click"/>
-                <Button Content="Loans" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="4" Margin="16,0,16,8" Click="LoansButton_Click"/>
-
-                <!-- Display logged in user above settings button -->
-                <TextBlock
-                    Grid.Row="5"
-                    Margin="16,0,16,8"
-                    FontWeight="SemiBold"
-                    FontSize="14"
-                    Text="{Binding CurrentUsername, StringFormat=Logged in as: {0}}"
-                    Foreground="White"
-                    VerticalAlignment="Bottom"
-                    HorizontalAlignment="Left"/>
+            <!-- Main Content Area -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
                 
-                <!-- Settings Button at Bottom -->
-                <Button
-                        Style="{StaticResource MaterialDesignFloatingActionButton}"
-                        Grid.Row="6"
-                        Width="40"
-                        Height="40"
-                        HorizontalAlignment="Left"
-                        Margin="16,0,16,16"
-                        Click="SettingsButton_Click">
-                        <materialDesign:PackIcon Kind="Settings" Width="24" Height="24"/>
-                </Button>
+                <!-- Sidebar -->
+                <Grid Grid.Column="0" Background="#2E2053">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/> <!-- Logo/Title -->
+                        <RowDefinition Height="Auto"/> <!-- Spacer -->
+                        <RowDefinition Height="Auto"/> <!-- Books -->
+                        <RowDefinition Height="Auto"/> <!-- Members -->
+                        <RowDefinition Height="Auto"/> <!-- Loans -->
+                        <RowDefinition Height="*"/>    <!-- Fills space -->
+                        <RowDefinition Height="Auto"/> <!-- Settings at bottom -->
+                    </Grid.RowDefinitions>
 
-                <!-- Logout Button -->
-                <Button
-                        Style="{StaticResource MaterialDesignFloatingActionButton}"
-                        Grid.Row="6"
-                        Width="40"
-                        Height="40"
-                        HorizontalAlignment="Right"
-                        Margin="16,0,16,16"
-                        Click="LogoutButton_Click">
-                        <materialDesign:PackIcon Kind="logout" Width="24" Height="24"/>
-                </Button>
+                    <!-- App Title -->
+                    <TextBlock Text="LibraFlow" FontSize="28" FontWeight="Bold" Foreground="White" Margin="16,24,0,16" Grid.Row="0"/>
+
+                    <!-- Spacer -->
+                    <Border Height="16" Grid.Row="1"/>
+
+                    <!-- Navigation Buttons -->
+                    <Button Content="Books" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="2" Margin="16,0,16,8" Click="BooksButton_Click"/>
+                    <Button Content="Members" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="3" Margin="16,0,16,8" Click="MembersButton_Click"/>
+                    <Button Content="Loans" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Row="4" Margin="16,0,16,8" Click="LoansButton_Click"/>
+
+                    <!-- Display logged in user above settings button -->
+                    <TextBlock
+                        Grid.Row="5"
+                        Margin="16,0,16,8"
+                        FontWeight="SemiBold"
+                        FontSize="14"
+                        Text="{Binding CurrentUsername, StringFormat=Logged in as: {0}}"
+                        Foreground="White"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left"/>
+                    
+                    <!-- Settings Button at Bottom -->
+                    <Button
+                            Style="{StaticResource MaterialDesignFloatingActionButton}"
+                            Grid.Row="6"
+                            Width="40"
+                            Height="40"
+                            HorizontalAlignment="Left"
+                            Margin="16,0,16,16"
+                            Click="SettingsButton_Click">
+                            <materialDesign:PackIcon Kind="Settings" Width="24" Height="24"/>
+                    </Button>
+
+                    <!-- Logout Button -->
+                    <Button
+                            Style="{StaticResource MaterialDesignFloatingActionButton}"
+                            Grid.Row="6"
+                            Width="40"
+                            Height="40"
+                            HorizontalAlignment="Right"
+                            Margin="16,0,16,16"
+                            Click="LogoutButton_Click">
+                            <materialDesign:PackIcon Kind="logout" Width="24" Height="24"/>
+                    </Button>
+                </Grid>
+
+                <!-- Main Content -->
+                <ContentControl x:Name="MainContent" Grid.Column="1">
+                    <StackPanel>
+                        <materialDesign:Card
+                            Padding="32"
+                            Margin="250"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Width="400">
+                            <StackPanel>
+                                <TextBlock
+                                    Text="Welcome to LibraFlow!"
+                                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                    Foreground="{DynamicResource MaterialDesignBody}"
+                                    TextAlignment="Center"
+                                    Margin="0,0,0,12"/>
+                                <TextBlock
+                                    Text="Your modern library management system."
+                                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                    Foreground="{DynamicResource MaterialDesignBody}"
+                                    TextAlignment="Center"/>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </StackPanel>
+                </ContentControl>
             </Grid>
 
-            <!-- Main Content -->
-            <ContentControl x:Name="MainContent" Grid.Column="1">
-                <StackPanel>
-                    <materialDesign:Card
-                        Padding="32"
-                        Margin="250"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Width="400">
-                        <StackPanel>
-                            <TextBlock
-                                Text="Welcome to LibraFlow!"
-                                Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                Foreground="{DynamicResource MaterialDesignBody}"
-                                TextAlignment="Center"
-                                Margin="0,0,0,12"/>
-                            <TextBlock
-                                Text="Your modern library management system."
-                                Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                Foreground="{DynamicResource MaterialDesignBody}"
-                                TextAlignment="Center"/>
-                        </StackPanel>
-                    </materialDesign:Card>
-                </StackPanel>
-            </ContentControl>
+            <!-- Status Bar -->
+            <StatusBar Grid.Row="1" 
+                       Background="{DynamicResource MaterialDesignCardBackground}"
+                       BorderBrush="{DynamicResource MaterialDesignDivider}"
+                       BorderThickness="0,1,0,0"
+                       Height="28">
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+
+                <!-- Database Connection Status -->
+                <StatusBarItem Grid.Column="0" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Database" 
+                                               Width="14" Height="14" 
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                               Margin="0,0,4,0"/>
+                        <TextBlock Text="{Binding DatabaseName, FallbackValue='SQLite: library.db'}" 
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+                </StatusBarItem>
+
+                <!-- User Role -->
+                <StatusBarItem Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Margin="16,0,0,0">
+                        <materialDesign:PackIcon Kind="AccountCircle" 
+                                               Width="14" Height="14" 
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                               Margin="0,0,4,0"/>
+                        <TextBlock Text="{Binding UserRole, FallbackValue='Administrator'}" 
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+                </StatusBarItem>
+
+                <!-- Connection Status -->
+                <StatusBarItem Grid.Column="2">
+                    <StackPanel Orientation="Horizontal" Margin="16,0,0,0">
+                        <Ellipse Width="8" Height="8" 
+                                 VerticalAlignment="Center"
+                                 Margin="0,0,4,0">
+                            <Ellipse.Style>
+                                <Style TargetType="Ellipse">
+                                    <Setter Property="Fill" Value="Red"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                            <Setter Property="Fill" Value="LimeGreen"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                                            <Setter Property="Fill" Value="Red"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Ellipse.Style>
+                        </Ellipse>
+                        <TextBlock Text="{Binding ConnectionStatus, FallbackValue='Connected'}" 
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+                </StatusBarItem>
+
+                <!-- Records Count -->
+                <StatusBarItem Grid.Column="3">
+                    <StackPanel Orientation="Horizontal" Margin="16,0,0,0">
+                        <materialDesign:PackIcon Kind="Counter" 
+                                               Width="14" Height="14" 
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                               Margin="0,0,4,0"/>
+                        <TextBlock Text="{Binding RecordsSummary, FallbackValue='Books: 150 | Members: 75 | Loans: 23'}" 
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+                </StatusBarItem>
+
+                <!-- Last Backup -->
+                <StatusBarItem Grid.Column="4">
+                    <StackPanel Orientation="Horizontal" Margin="16,0,0,0">
+                        <materialDesign:PackIcon Kind="BackupRestore" 
+                                               Width="14" Height="14" 
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                               Margin="0,0,4,0"/>
+                        <TextBlock Text="{Binding LastBackupText, StringFormat='Backup: {0}', FallbackValue='Backup: Never'}" 
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+                </StatusBarItem>
+
+                <!-- Current Time -->
+                <StatusBarItem Grid.Column="5">
+                    <StackPanel Orientation="Horizontal" Margin="16,0,8,0">
+                        <materialDesign:PackIcon Kind="Clock" 
+                                               Width="14" Height="14" 
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                               Margin="0,0,4,0"/>
+                        <TextBlock Text="{Binding CurrentTime, StringFormat='HH:mm'}" 
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+                </StatusBarItem>
+            </StatusBar>
+
+            <!-- Snackbar positioned with bottom edge just above status bar and perfectly centered -->
+            <materialDesign:Snackbar x:Name="NotificationSnackbar"
+                                   Grid.Row="0"
+                                   Grid.ColumnSpan="2"
+                                   VerticalAlignment="Bottom"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,28"
+                                   MessageQueue="{materialDesign:MessageQueue}" />
         </Grid>
-
-        <!-- Status Bar -->
-        <StatusBar Grid.Row="1" 
-                   Background="{DynamicResource MaterialDesignCardBackground}"
-                   BorderBrush="{DynamicResource MaterialDesignDivider}"
-                   BorderThickness="0,1,0,0"
-                   Height="28">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-
-            <!-- Database Connection Status -->
-            <StatusBarItem Grid.Column="0" HorizontalAlignment="Left">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Database" 
-                                           Width="14" Height="14" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                           Margin="0,0,4,0"/>
-                    <TextBlock Text="{Binding DatabaseName, FallbackValue='SQLite: library.db'}" 
-                               FontSize="12"
-                               VerticalAlignment="Center"
-                               Foreground="{DynamicResource MaterialDesignBodyLight}"/>
-                </StackPanel>
-            </StatusBarItem>
-
-            <!-- User Role -->
-            <StatusBarItem Grid.Column="1">
-                <StackPanel Orientation="Horizontal" Margin="16,0,0,0">
-                    <materialDesign:PackIcon Kind="AccountCircle" 
-                                           Width="14" Height="14" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                           Margin="0,0,4,0"/>
-                    <TextBlock Text="{Binding UserRole, FallbackValue='Administrator'}" 
-                               FontSize="12"
-                               VerticalAlignment="Center"
-                               Foreground="{DynamicResource MaterialDesignBodyLight}"/>
-                </StackPanel>
-            </StatusBarItem>
-
-            <!-- Connection Status -->
-            <StatusBarItem Grid.Column="2">
-                <StackPanel Orientation="Horizontal" Margin="16,0,0,0">
-                    <Ellipse Width="8" Height="8" 
-                             Fill="{DynamicResource MaterialDesignValidationErrorBrush}"
-                             VerticalAlignment="Center"
-                             Margin="0,0,4,0">
-                        <Ellipse.Style>
-                            <Style TargetType="Ellipse">
-                                <Setter Property="Fill" Value="{DynamicResource MaterialDesignValidationErrorBrush}"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsConnected, FallbackValue=True}" Value="True">
-                                        <Setter Property="Fill" Value="#4CAF50"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Ellipse.Style>
-                    </Ellipse>
-                    <TextBlock Text="{Binding ConnectionStatus, FallbackValue='Connected'}" 
-                               FontSize="12"
-                               VerticalAlignment="Center"
-                               Foreground="{DynamicResource MaterialDesignBodyLight}"/>
-                </StackPanel>
-            </StatusBarItem>
-
-            <!-- Records Count -->
-            <StatusBarItem Grid.Column="3">
-                <StackPanel Orientation="Horizontal" Margin="16,0,0,0">
-                    <materialDesign:PackIcon Kind="Counter" 
-                                           Width="14" Height="14" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                           Margin="0,0,4,0"/>
-                    <TextBlock Text="{Binding RecordsSummary, FallbackValue='Books: 150 | Members: 75 | Loans: 23'}" 
-                               FontSize="12"
-                               VerticalAlignment="Center"
-                               Foreground="{DynamicResource MaterialDesignBodyLight}"/>
-                </StackPanel>
-            </StatusBarItem>
-
-            <!-- Last Backup -->
-            <StatusBarItem Grid.Column="4">
-                <StackPanel Orientation="Horizontal" Margin="16,0,0,0">
-                    <materialDesign:PackIcon Kind="BackupRestore" 
-                                           Width="14" Height="14" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                           Margin="0,0,4,0"/>
-                    <TextBlock Text="{Binding LastBackupText, StringFormat='Backup: {0}', FallbackValue='Backup: Never'}" 
-                               FontSize="12"
-                               VerticalAlignment="Center"
-                               Foreground="{DynamicResource MaterialDesignBodyLight}"/>
-                </StackPanel>
-            </StatusBarItem>
-
-            <!-- Current Time -->
-            <StatusBarItem Grid.Column="5">
-                <StackPanel Orientation="Horizontal" Margin="16,0,8,0">
-                    <materialDesign:PackIcon Kind="Clock" 
-                                           Width="14" Height="14" 
-                                           VerticalAlignment="Center"
-                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                           Margin="0,0,4,0"/>
-                    <TextBlock Text="{Binding CurrentTime, StringFormat='HH:mm'}" 
-                               FontSize="12"
-                               VerticalAlignment="Center"
-                               Foreground="{DynamicResource MaterialDesignBodyLight}"/>
-                </StackPanel>
-            </StatusBarItem>
-        </StatusBar>
-    </Grid>
+    </materialDesign:DialogHost>
 </Window>

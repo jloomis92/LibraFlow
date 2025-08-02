@@ -37,7 +37,6 @@ namespace LibraFlow.Views
                     db.Books.Add(dialog.Book);
                     db.SaveChanges();
                 }
-                // Optionally, refresh your books list here if you display it in the UI
             }
         }
     }
