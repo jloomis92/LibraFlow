@@ -4,8 +4,8 @@
 
 > Designed for simplicity, speed, and extensibility.
 
-![Light Mode Screenshot](Resources/light-screenshot.png)
-![Dark Mode Screenshot](Resources/dark-screenshot.png)
+![Light Mode Screenshot](Assets/light-screenshot.png)
+![Dark Mode Screenshot](Assets/dark-screenshot.png)
 
 ---
 
